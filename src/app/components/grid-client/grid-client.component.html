@@ -1,0 +1,36 @@
+
+
+<div class="client-list-container">
+  <div class="client-list-header">
+    <span>16 clientes encontrados:</span>
+    <div class="page-size-selector">
+      <label for="pageSize">Clientes por página:</label>
+      <div class="select-wrapper">
+        <select id="pageSize" [(ngModel)]="selectedPageSize">
+          <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
+        </select>
+        <span class="custom-arrow">▾</span> <!-- seta de combo -->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="client-grid">
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+    <app-card-client></app-card-client>
+  </div>
+
+  <div class="create-client-btn">
+    <button>Criar cliente</button>
+  </div>
+</div>

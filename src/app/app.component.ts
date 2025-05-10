@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { SideNavigationComponent } from './camponents/side-navigation/side-navigation.component';
-import { HeaderComponent } from './camponents/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CardClientComponent } from "./components/card-client/card-client.component";
+import { GridClientComponent } from './components/grid-client/grid-client.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, GridClientComponent,PaginationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
