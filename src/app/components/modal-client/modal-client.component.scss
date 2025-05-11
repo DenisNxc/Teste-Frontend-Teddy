@@ -26,6 +26,20 @@
   position: relative;
 }
 
+.modal-container-excluir {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  height: 148px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -82,7 +96,24 @@
   font-size: 14px;
   line-height: 100%;
   margin-top: 10px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #d45a1f;
+  }
 }
+
+.confirmacao-massage{
+  width: 346;
+  height: 19;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+
 
 
 

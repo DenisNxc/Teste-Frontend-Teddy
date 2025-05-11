@@ -1,5 +1,16 @@
 <app-header></app-header>
-<app-grid-client></app-grid-client>
-<app-pagination></app-pagination>
+
+<app-grid-client
+  [page]="currentPage"
+  [pageSize]="selectedPageSize"
+  (pageSizeChange)="onPageSizeChange($event)"
+  (totalPagesChange)="updateTotalPages($event)">
+</app-grid-client>
+
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChanged)="onPageChange($event)">
+</app-pagination>
 
 <router-outlet></router-outlet>
