@@ -2,7 +2,7 @@
   <div class="modal-container" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <div>{{ modalTitle }}</div>
-      <img src="http://localhost:4203/assets/images/close.png" alt="Adicionar" class="close-icon" (click)="onClose()" />
+      <img src="assets/images/close.png" alt="Adicionar" class="close-icon" (click)="onClose()" />
     </div>
 
     <form (ngSubmit)="onSubmit()" #clientForm="ngForm" style="display: contents"
@@ -46,7 +46,7 @@
   <div class="modal-container-excluir" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <div>{{ modalTitle }}</div>
-      <img src="http://localhost:4203/assets/images/close.png" alt="Adicionar" class="close-icon" (click)="onClose()" />
+      <img src="assets/images/close.png" alt="Adicionar" class="close-icon" (click)="onClose()" />
     </div>
     <div class="confirmation-message"><span style="font-family: Inter;
         font-weight: 400;

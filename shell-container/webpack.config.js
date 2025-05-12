@@ -3,10 +3,10 @@ const { shareAll, withModuleFederationPlugin } = require('@angular-architects/mo
 module.exports = withModuleFederationPlugin({
 
   remotes: {
-    welcome: "welcome-coral.vercel.app/remoteEntry.js",
-    home: "home-teddy.vercel.app/remoteEntry.js",
-    cliente: "cliente-teddyy.vercel.app/remoteEntry.js",
-    produto: "produto-teddy.vercel.app/remoteEntry.js"
+    welcome: "https://welcome-coral.vercel.app/remoteEntry.js", 
+    home: "https://home-teddy.vercel.app/remoteEntry.js",  
+    cliente: "https://cliente-teddyy.vercel.app/remoteEntry.js",
+    produto: "https://produto-teddy.vercel.app/remoteEntry.js",
   },
 
   shared: {
