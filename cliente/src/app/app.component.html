@@ -7,7 +7,7 @@
   (totalPagesChange)="updateTotalPages($event)">
 </app-grid-client>
 
-<app-pagination
+<app-pagination *ngIf="!selected"
   [totalPages]="totalPages"
   [currentPage]="currentPage"
   (pageChanged)="onPageChange($event)">
