@@ -1,4 +1,4 @@
-import { UsuarioService } from './../../../../../cliente/src/app/services/usuario.service';
+
 import { Component } from '@angular/core';
 import { SideNavigationComponent } from '../side-navigation/side-navigation.component';
 import { NavigationExtras, Router } from '@angular/router';
@@ -15,8 +15,8 @@ export class HeaderComponent {
   isSideNavOpen = false;
   usuarioNome: string = '';
 
-  constructor(private router: Router,usuarioNome:UsuarioService) {
-    this.usuarioNome = usuarioNome.getNome();
+  constructor(private router: Router) {
+    this.usuarioNome = window.sessionStorage.getItem('username') as string;
   }
 
   toggleSideNav() {
