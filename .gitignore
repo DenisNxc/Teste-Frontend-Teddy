@@ -40,3 +40,24 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+
+# Micro-FrontEnd Remotes
+/shell-container/node_modules
+/shell-container/.angular
+
+/welcome/node_modules
+/welcome/.angular
+
+/home/node_modules
+/home/.angular
+
+/cliente/node_modules
+/cliente/.angular
+
+/produto/node_modules
+/produto/.angular
+
+
+
+

@@ -1,5 +1,4 @@
 import { ClientesService } from '../../services/client.service';
-import { SelectedClientsService } from '../../services/selected-clients.services';
 
 import { CommonModule } from '@angular/common';
 import {
@@ -63,16 +62,12 @@ export class GridClientComponent implements OnInit, OnChanges {
   idsSelected: Array<number> = [];
 
   private clienteService = inject(ClientesService);
-  constructor(private selectedClientsService: SelectedClientsService) {}
+  constructor() {}
 
   ngOnInit() {
     if (this.pageSize && this.pageSizeOptions.includes(this.pageSize)) {
       this.selectedPageSize = this.pageSize;
     }
-
-    this.selectedClientsService.clientsUpdated.subscribe(() => {
-      this.filterOutSelectedClients();
-    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -106,8 +101,6 @@ export class GridClientComponent implements OnInit, OnChanges {
         } else {
           this.clientes = data.clients;
         }
-
-        console.log(this.clientes)
 
         this.totalPages = data.totalPages;
         if (data.currentPage) {
@@ -151,7 +144,6 @@ export class GridClientComponent implements OnInit, OnChanges {
     this.selectedClientData = { ...cliente };
     this.currentModalMode = "delete";
     this.showClientModal = true;
-    console.log(this.selectedClientData);
   }
 
   handleCloseModal(): void {
@@ -168,7 +160,6 @@ export class GridClientComponent implements OnInit, OnChanges {
 
     this.clienteService.deletarCliente(clientId).subscribe({
       next: () => {
-        console.log(`Cliente com ID ${clientId} deletado.`);
         this.loadClientes();
       },
       error: (err) => console.error(`Erro ao deletar cliente ${clientId}:`, err),
@@ -190,16 +181,6 @@ export class GridClientComponent implements OnInit, OnChanges {
     this.idsSelected = [];
 
     this.loadClientes();
-  }
-
-  private filterOutSelectedClients() {
-    const selectedIds = this.selectedClientsService.getSelectedClients().map(c => c.id);
-    this.clientes = this.clientes.filter(cliente => !selectedIds.includes(cliente.id));
-    this.totalClients = this.clientes.length;
-  }
-
-  get showClearButton(): boolean {
-    return this.mode === 'selection' && this.selectedClientsService.getSelectedClients().length > 0;
   }
 
 }

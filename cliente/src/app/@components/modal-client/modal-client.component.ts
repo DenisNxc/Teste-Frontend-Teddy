@@ -69,7 +69,6 @@ export class ModalClientComponent {
       this.clientData &&
       this.clientData.id
     ) {
-      console.log(this.clientData, this.mode);
       this.modalTitle = 'Excluir cliente:';
       this.submitButtonText = 'Excluir cliente';
       this.formData = { name: '', salary: null, companyValuation: null }; // Clear form for delete view

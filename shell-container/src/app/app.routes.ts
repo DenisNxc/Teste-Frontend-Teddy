@@ -1,4 +1,3 @@
-import { ClientSelectedComponent } from './../../../cliente/src/app/clientes-selecionados/client-selected.component';
 import { loadRemoteModule } from '@angular-architects/module-federation'
 import { Routes } from '@angular/router';
 

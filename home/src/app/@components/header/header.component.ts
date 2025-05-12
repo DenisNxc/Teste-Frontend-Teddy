@@ -21,12 +21,10 @@ export class HeaderComponent {
 
   toggleSideNav() {
     this.isSideNavOpen = !this.isSideNavOpen;
-    console.log(this.isSideNavOpen);
   }
 
   onSideNavClosed() {
     this.isSideNavOpen = false;
-    console.log('Side navigation foi fechado');
   }
 
   selectMenu(menu: string) {

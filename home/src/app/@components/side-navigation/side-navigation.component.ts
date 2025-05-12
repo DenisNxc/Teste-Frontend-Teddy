@@ -14,14 +14,12 @@ export class SideNavigationComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isOpen']) {
-      console.log('isOpen mudou:', changes['isOpen'].currentValue);
     }
   }
 
   onCollapseClick(): void {
     this.isOpen = false
-    console.log('isOpen:', this.isOpen); // Verifica se o valor foi alterado
-    this.menuClosed.emit(); // Dispara evento para o pai
+    this.menuClosed.emit();
   }
 
 }
