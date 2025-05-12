@@ -1,5 +1,5 @@
 <div class="client-list-container">
-  <div class="client-list-header">
+  <div class="client-list-header" *ngIf="mode === 'default'">
     <span>{{ totalClients }} clientes encontrados:</span>
     <div class="page-size-selector">
       <label for="pageSize">Clientes por página:</label>
@@ -12,16 +12,26 @@
     </div>
   </div>
 
+  <div class="client-list-header" *ngIf="mode === 'selection'">
+    <span class="client-selected">Cliente selecionados:</span>
+  </div>
+
   <div class="client-grid">
     <app-card-client *ngFor="let cliente of clientes"
                       [cliente]="cliente"
+                      [mode]="mode"
+                      (addRequest)="onAddToSelected($event)"
                       (editRequest)="openModalForEdit($event)"
                       (deleteRequest)="openModalForDelete($event)">
     </app-card-client>
   </div>
 
-  <div class="create-client-btn" (click)="openModalForCreate()">
+  <div class="create-client-btn" *ngIf="mode === 'default'" (click)="openModalForCreate()">
     <button>Criar cliente</button>
+  </div>
+
+  <div class="create-client-btn" *ngIf="mode === 'selection'" (click)="clearSelection.emit()">
+    <button>Limpar clientes selecionados</button>
   </div>
 
   <app-modal-client *ngIf="showClientModal"

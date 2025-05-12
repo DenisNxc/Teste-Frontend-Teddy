@@ -12,6 +12,8 @@ export interface Cliente {
   updatedAt?: string;
 }
 
+export type CardMode = 'default' | 'selection';
+
 @Component({
   selector: 'app-card-client',
   imports: [CommonModule,FormsModule, ModalClientComponent],
@@ -21,10 +23,17 @@ export interface Cliente {
 export class CardClientComponent {
 
   @Input() cliente!: Cliente;
+  @Input() mode: CardMode = 'default';
+  @Output() addRequest = new EventEmitter<Cliente>();
   @Output() editRequest = new EventEmitter<Cliente>();
   @Output() deleteRequest = new EventEmitter<Cliente>();
+  @Output() removeRequest = new EventEmitter<Cliente>();
 
   showModal = false;
+
+  onAdd(): void {
+    this.addRequest.emit(this.cliente);
+  }
 
   onEdit(): void {
     this.editRequest.emit(this.cliente);
@@ -35,8 +44,11 @@ export class CardClientComponent {
   }
 
   onDelete(): void {
-    console.log(this.cliente);
     this.deleteRequest.emit(this.cliente);
+  }
+
+  onRemove(): void {
+    this.removeRequest.emit(this.cliente);
   }
 
 }

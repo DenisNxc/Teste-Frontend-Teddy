@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { CardClientComponent, Cliente } from '../card-client/card-client.component';
 import { ClientesService } from '../../services/client.service';
 import { ModalClientComponent, ModalMode } from '../modal-client/modal-client.component';
+import { SelectedClientsService } from '../../services/selected-clients.services';
 
 export interface Client {
   id: number;
@@ -41,6 +42,11 @@ export class GridClientComponent implements OnInit, OnChanges {
   @Output() pageChanged = new EventEmitter<number>();
   @Output() totalPagesChange = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
+  @Output() addToSelected = new EventEmitter<Cliente>();
+  @Input() mode: 'default' | 'selection' = 'default';
+  @Input() showPagination: boolean = true;
+  @Input() showPageSizeSelector: boolean = true;
+  @Output() clearSelection = new EventEmitter<void>();
 
   pageSizeOptions = [8, 12, 16, 24, 32];
   selectedPageSize = 16;
@@ -51,14 +57,21 @@ export class GridClientComponent implements OnInit, OnChanges {
   showClientModal = false;
   selectedClientData: Cliente | null = null;
   currentModalMode: ModalMode = "create";
+  removedClientIds = new Set<number>();
+
 
   private clienteService = inject(ClientesService);
+  constructor(private selectedClientsService: SelectedClientsService) {}
 
   ngOnInit() {
     if (this.pageSize && this.pageSizeOptions.includes(this.pageSize)) {
       this.selectedPageSize = this.pageSize;
     }
     this.loadClientes();
+
+    this.selectedClientsService.clientsUpdated.subscribe(() => {
+      this.filterOutSelectedClients();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -95,26 +108,6 @@ export class GridClientComponent implements OnInit, OnChanges {
       error: (err) => console.error("Erro ao carregar clientes:", err),
     });
   }
-
-  // loadClientes() {
-  //   this.clienteService.getClientes(this.currentPage, this.pageSize).subscribe({
-  //     next: (data: ClientResponse) => {
-  //       const mockClients = Array.from({ length: 100 }, (_, i) => ({
-  //         ...data.clients[i % data.clients.length],
-  //         id: i + 1,
-  //         name: `Cliente ${i + 1}`,
-  //       }));
-
-  //       const start = (this.currentPage - 1) * this.pageSize;
-  //       const end = start + this.pageSize;
-  //       this.clientes = mockClients.slice(start, end);
-
-  //       const totalPages = Math.ceil(mockClients.length / this.pageSize);
-  //       this.totalPagesChange.emit(totalPages);
-  //     },
-  //     error: (err) => console.error('Erro ao carregar clientes:', err),
-  //   });
-  // }
 
   onPageChange(newPage: number) {
     if (newPage >= 1 && newPage <= this.totalPages) {
@@ -160,15 +153,38 @@ export class GridClientComponent implements OnInit, OnChanges {
     this.handleCloseModal();
   }
 
-  // Método para lidar com a deleção, se implementado no card
   handleDeleteConfirm(clientId: any): void {
-    // Adicionar lógica de confirmação aqui antes de deletar
+
     this.clienteService.deletarCliente(clientId).subscribe({
       next: () => {
         console.log(`Cliente com ID ${clientId} deletado.`);
-        this.loadClientes(); // Recarregar após deletar
+        this.loadClientes();
       },
       error: (err) => console.error(`Erro ao deletar cliente ${clientId}:`, err),
     });
   }
+
+  onAddToSelected(cliente: Cliente): void {
+    this.selectedClientsService.addClient(cliente);
+    this.removedClientIds.add(cliente.id);
+    this.clientes = this.clientes.filter(c => c.id !== cliente.id);
+    this.totalClients = this.clientes.length;
+  }
+
+  private filterOutSelectedClients() {
+    const selectedIds = this.selectedClientsService.getSelectedClients().map(c => c.id);
+    this.clientes = this.clientes.filter(cliente => !selectedIds.includes(cliente.id));
+    this.totalClients = this.clientes.length;
+  }
+
+  get showClearButton(): boolean {
+    return this.mode === 'selection' && this.selectedClientsService.getSelectedClients().length > 0;
+  }
+
+  onRemoveFromSelected(cliente: any): void {
+    this.selectedClientsService.removeClient(cliente);
+    this.clientes.push(cliente); // Adiciona de volta à lista
+    this.totalClients = this.clientes.length;
+  }
+
 }

@@ -88,46 +88,6 @@ export class ModalClientComponent {
     this.closeModal.emit();
   }
 
-  // onSubmit(): void {
-  //   if (
-  //     !this.formData.name ||
-  //     this.formData.salary === null ||
-  //     this.formData.companyValuation === null
-  //   ) {
-  //     // Adicionar alguma lógica de validação ou feedback para o usuário aqui, se necessário
-  //     console.error('Formulário inválido');
-  //     return;
-  //   }
-
-  //   const clientPayload: Omit<Cliente, 'id'> | Partial<Cliente> = {
-  //     name: this.formData.name,
-  //     salary: Number(this.formData.salary),
-  //     companyValuation: Number(this.formData.companyValuation),
-  //   };
-
-  //   if (this.isEditMode && this.clientData && this.clientData.id) {
-  //     this.clienteService
-  //       .atualizarCliente(this.clientData.id, clientPayload as Partial<Cliente>)
-  //       .subscribe({
-  //         next: (updatedClient) => {
-  //           this.saveClient.emit(updatedClient);
-  //           this.onClose(); // Fechar o modal após salvar
-  //         },
-  //         error: (err) => console.error('Erro ao atualizar cliente:', err),
-  //       });
-  //   } else {
-  //     this.clienteService
-  //       .criarCliente(clientPayload as Omit<Cliente, 'id'>)
-  //       .subscribe({
-  //         next: (newClient) => {
-  //           this.saveClient.emit(newClient);
-  //           this.onClose(); // Fechar o modal após criar
-  //         },
-  //         error: (err) => console.error('Erro ao criar cliente:', err),
-  //       });
-  //   }
-  // }
-
   onSubmit(): void {
     if (this.mode === "delete" && this.clientData && this.clientData.id) {
       this.deleteConfirm.emit(this.clientData.id);

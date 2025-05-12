@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SideNavigationComponent } from '../side-navigation/side-navigation.component';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +12,11 @@ import { SideNavigationComponent } from '../side-navigation/side-navigation.comp
 export class HeaderComponent {
   menuSelecionado: string = 'clientes';
   isSideNavOpen = false;
+  usuarioNome: string = '';
+
+  constructor(private router: Router,usuarioNome:UsuarioService) {
+    this.usuarioNome = usuarioNome.getNome();
+  }
 
   toggleSideNav() {
     this.isSideNavOpen = !this.isSideNavOpen;
@@ -23,6 +30,18 @@ export class HeaderComponent {
 
   selectMenu(menu: string) {
     this.menuSelecionado = menu;
+
+    switch(menu) {
+      case 'clientes':
+        this.router.navigate(['/clientes']);
+        break;
+      case 'clientes-selecionados':
+        this.router.navigate(['/clientesSelected']);
+        break;
+      case 'sair':
+        window.location.href = '/';
+        break;
+    }
   }
 
 }

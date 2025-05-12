@@ -1,8 +1,21 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ClientResponse } from '../components/grid-client/grid-client.component';
 
+
+export interface Client {
+  id: number;
+  name: string;
+  salary: number;
+  companyValuation: number;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface ClientResponse {
+  clients: Client[];
+  totalPages: number;
+  currentPage: number;
+}
 export interface Cliente {
   id: number;
   name: string;

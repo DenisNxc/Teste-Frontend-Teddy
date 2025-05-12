@@ -19,7 +19,7 @@ export class WelcomeComponent {
     const nomeUsuario = this.nome.value?.trim();
     if (nomeUsuario) {
       this.usuarioService.setNome(nomeUsuario);
-      this.router.navigate(['/clientes']);
+       this.router.navigate(['/clientes']);
     }
   }
 
